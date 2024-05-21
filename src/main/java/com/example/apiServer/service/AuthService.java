@@ -11,10 +11,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class AuthService {
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
+
 
     public UserResponse authenticate(String userName, String userIdentity) {
         UsernamePasswordAuthenticationToken  authenticationToken = new UsernamePasswordAuthenticationToken(userName, userIdentity);

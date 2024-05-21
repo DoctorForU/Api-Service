@@ -1,14 +1,14 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/apiserver?serverTimezone=Asia/Seoul
-    username: root
-    password: 0000abc
+    url: ${application.spring.datasource.url}
+    username: ${application.spring.datasource.username}
+    password: ${application.spring.datasource.password}
 
   jpa:
     database: mysql
     hibernate:
-      ddl-auto: create # (1) 스키마 자동 생성
+      ddl-auto: update # (1) 스키마 생성
     show-sql: true # (2) SQL 쿼리 출력
     generate-ddl: true
     properties:
@@ -18,5 +18,5 @@ spring:
     defer-datasource-initialization: true
 
 jwt:
-  header: Authorization
-  secret: YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd6eXoxMjMxMjMxMjMxMjMxMjMxMzEyMzEyMzEzMTIzMTIzMTIzMTMxMjMxMzEzMTMxMjM
+  secret: ${application.jwt.secret}
+  refresh-token-expiration-seconds: 90
