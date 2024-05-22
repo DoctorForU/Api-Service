@@ -1,15 +1,18 @@
 package com.example.apiServer.entity;
 
-import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.redis.core.RedisHash;
+import org.springframework.data.redis.core.TimeToLive;
 
-@Entity
-@Table(name = "token")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Getter @Setter
+@RedisHash(value = "token", timeToLive = 10)
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 public class Token {
     @Id
-    private String userId;
+    private String id;
     private String refreshToken;
 }

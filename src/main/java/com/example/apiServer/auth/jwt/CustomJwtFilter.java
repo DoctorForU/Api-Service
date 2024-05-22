@@ -38,12 +38,8 @@ public class CustomJwtFilter implements Filter {
         chain.doFilter(request, response);
     }
 
-    /**
-     * HttpServletRequest에서 `Authorization` 헤더를 받음.
-     * 헤더에서 'Bearer'로 시작하는 토큰이 있으면 'Bearer' 부분 제거하고 토큰 값 반환 아니면 널 값 반환
-     * @param request
-     * @return
-     */
+    // HttpServletRequest에서 `Authorization` 헤더를 받음.
+    // 헤더에서 'Bearer'로 시작하는 토큰이 있으면 'Bearer' 부분 제거하고 토큰 값 반환 아니면 널 값 반환
     private String resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {

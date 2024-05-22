@@ -1,13 +1,12 @@
 package com.example.apiServer.dto.token;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class TokenRequest {
     private String userId;
-    private String refreshToken;
+    private String userRole;
 }

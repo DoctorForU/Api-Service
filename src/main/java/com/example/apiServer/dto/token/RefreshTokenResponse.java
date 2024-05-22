@@ -1,4 +1,4 @@
-package com.example.apiServer.dto.user;
+package com.example.apiServer.dto.token;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserResponse {
-    String accessToken;
-    String refreshToken;
+public class RefreshTokenResponse {
+    private String refreshToken;
 }
