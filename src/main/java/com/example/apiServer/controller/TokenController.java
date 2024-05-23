@@ -18,7 +18,7 @@ public class TokenController {
     private final TokenService tokenService;
 
     @PostMapping("/auth")
-    public ResponseEntity<TokenResponse> getAuth(@RequestBody TokenRequest tokenRequest) {
+    public ResponseEntity<TokenResponse> getAuth(@RequestBody TokenRequest tokenRequest) { // 여기서 주민번호를 받아
         TokenResponse token = tokenService.getAuthToken(tokenRequest.getUserId(), tokenRequest.getUserRole());
         return ResponseEntity.ok(token);
     }

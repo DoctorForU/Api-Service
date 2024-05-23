@@ -1,22 +1,28 @@
 package com.example.apiServer.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "drug")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "DTYPE")
-@Getter @Setter
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE) // ?
+@DiscriminatorColumn(name = "DTYPE") //? ->
+@Data
+@NoArgsConstructor
 public class Drug {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column(name = "drugId")
     private int drugCode; //약품코드
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "medicationId")
     private Medication medication;
+
     private String prescribeDrugName; //처방약품명
+
     private String prescribeDrugEffect; //처방약품효능
 }
