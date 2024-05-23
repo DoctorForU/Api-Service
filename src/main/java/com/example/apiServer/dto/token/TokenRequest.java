@@ -7,6 +7,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TokenRequest {
-    private String userId;
-    private String userRole;
+    private String organizationId;
+    private String organizationEmail;
 }

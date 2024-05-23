@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("/api/v1/organization")
 @RequiredArgsConstructor
 public class TokenController {
     private final TokenService tokenService;

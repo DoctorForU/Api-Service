@@ -11,6 +11,7 @@ public class Organization {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JoinColumn(name = "organizationId")
-    private String id; // 기관명_가입일자
+    private String id; // 기관명
     private String email;
+
 }
