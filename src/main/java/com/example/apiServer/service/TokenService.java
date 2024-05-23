@@ -22,7 +22,7 @@ public class TokenService {
     private final TokenRepository tokenRepository;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
-    public TokenResponse getAuthToken(String userId, String userRole) {
+    public TokenResponse getAuthToken(String organizationName, String organizationNam) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userId, userRole);
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 

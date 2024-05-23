@@ -23,7 +23,7 @@ public class TokenController {
         return ResponseEntity.ok(token);
     }
 
-    @GetMapping("/refresh/{id}")
+    @GetMapping("/refresh")
     public ResponseEntity<TokenResponse> getRefresh(@RequestBody RefreshTokenRequest refreshTokenRequest) {
         TokenResponse response = tokenService.getRefreshToken(refreshTokenRequest.getUserId(), refreshTokenRequest.getRefreshToken());
         return ResponseEntity.ok(response);
