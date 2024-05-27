@@ -1,21 +1,16 @@
 package com.example.apiServer.config;
 
-
-import com.example.springallinoneproject.interceptor.LoginInterceptor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-@RequiredArgsConstructor
 public class WebConfig implements WebMvcConfigurer {
-    private final LoginInterceptor loginInterceptor;
+    public static final String ALLOWED_METHOD_NAMES = "GET,HEAD,POST,PUT,DELETE,TRACE,OPTIONS,PATCH";
 
     @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(loginInterceptor)
-                .addPathPatterns("/api/v1/user/**")
-                .addPathPatterns("/api/v1/manager/**");
+    public void addCorsMappings(final CorsRegistry registry) {
+        registry.addMapping("/api/v1/organization/**")
+                .allowedMethods(ALLOWED_METHOD_NAMES.split(","));
     }
 }
