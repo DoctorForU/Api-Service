@@ -1,4 +1,4 @@
-package com.example.apiServer.auth.config;
+package com.example.apiServer.config;
 
 import com.example.apiServer.auth.jwt.JwtProperties;
 import com.example.apiServer.auth.jwt.TokenProvider;

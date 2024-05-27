@@ -2,15 +2,12 @@ package com.example.apiServer.service;
 
 import com.example.apiServer.api.status.ErrorStatus;
 import com.example.apiServer.auth.jwt.TokenProvider;
-import com.example.apiServer.dto.token.RefreshTokenResponse;
 import com.example.apiServer.dto.token.TokenResponse;
-import com.example.apiServer.entity.Drug;
 import com.example.apiServer.entity.Organization;
 import com.example.apiServer.entity.Token;
 import com.example.apiServer.exception.GeneralException;
 import com.example.apiServer.repository.OrganizationRepository;
 import com.example.apiServer.repository.TokenRepository;
-import io.jsonwebtoken.*;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,10 +15,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-
-import java.time.Instant;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -47,8 +40,8 @@ public class TokenService {
         return new TokenResponse(accessToken, refreshToken);
     }
 
-    public TokenResponse getRefreshToken(String organizationId, String refreshToken){
-        String organizationEmail = organizationRepository.findEmailByOrganizationId(organizationId);
+    public TokenResponse getRefreshToken(String organizationName, String refreshToken){
+        String organizationEmail = findByOrganizationName(organizationName);
         Authentication authentication = tokenProvider.getAuthentication(refreshToken);
 
         // Token 발급
@@ -58,5 +51,10 @@ public class TokenService {
         // 공식 이메일 - RefreshToken 저장
         tokenRepository.save(new Token(organizationEmail, refreshToken));
         return new TokenResponse(newAccessToken, newRefreshToken);
+    }
+
+    public String findByOrganizationName(String organizationName){
+        return organizationRepository.findByOrganizationName(organizationName).map(Organization::getOrganizationEmail)
+                .orElseThrow(()->new GeneralException(ErrorStatus._USER_NOT_FOUND));
     }
 }

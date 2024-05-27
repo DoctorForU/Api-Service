@@ -23,8 +23,6 @@ public class Medication {
     @OneToOne(mappedBy = "medication", fetch = FetchType.LAZY)
     private Treat treat;
 
-    @OneToMany(mappedBy = "medication", cascade = CascadeType.ALL)
-    private List<Drug> drugs = new ArrayList<>();
 
     private String diseaseId; //질병분류
 

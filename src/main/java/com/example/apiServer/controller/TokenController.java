@@ -17,15 +17,20 @@ import org.springframework.web.bind.annotation.*;
 public class TokenController {
     private final TokenService tokenService;
 
-    @PostMapping("/auth")
-    public ResponseEntity<TokenResponse> getAuth(@RequestBody TokenRequest tokenRequest) { // 여기서 주민번호를 받아
-        TokenResponse token = tokenService.getAuthToken(tokenRequest.getUserId(), tokenRequest.getUserRole());
+    @PostMapping("/auth") // 기관 인증
+    public ResponseEntity<TokenResponse> getAuth(@RequestBody TokenRequest tokenRequest) {
+        TokenResponse token = tokenService.getAuthToken(tokenRequest.getOrganizationName(), tokenRequest.getOrganizationEmail());
         return ResponseEntity.ok(token);
     }
 
     @GetMapping("/refresh")
     public ResponseEntity<TokenResponse> getRefresh(@RequestBody RefreshTokenRequest refreshTokenRequest) {
-        TokenResponse response = tokenService.getRefreshToken(refreshTokenRequest.getUserId(), refreshTokenRequest.getRefreshToken());
+        TokenResponse response = tokenService.getRefreshToken(refreshTokenRequest.getOrganizationName(), refreshTokenRequest.getRefreshToken());
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/test")
+    public ResponseEntity<String> getTest(@RequestBody TokenRequest tokenRequest) {
+        return ResponseEntity.ok("test");
     }
 }

@@ -1,7 +1,7 @@
 package com.example.apiServer.api;
 
-import com.example.MyPage.api.status.BaseCode;
-import com.example.MyPage.api.status.SuccessStatus;
+import com.example.apiServer.api.status.BaseCode;
+import com.example.apiServer.api.status.SuccessStatus;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
