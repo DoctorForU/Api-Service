@@ -1,4 +1,4 @@
-package com.example.apiServer.auth.jwt;
+package com.example.apiServer.jwt;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

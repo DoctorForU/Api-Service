@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Drug {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "drugId")
     private Long drugCode; //약품코드
 

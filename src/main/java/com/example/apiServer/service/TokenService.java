@@ -1,7 +1,7 @@
 package com.example.apiServer.service;
 
 import com.example.apiServer.api.status.ErrorStatus;
-import com.example.apiServer.auth.jwt.TokenProvider;
+import com.example.apiServer.jwt.TokenProvider;
 import com.example.apiServer.dto.token.TokenResponse;
 import com.example.apiServer.entity.Organization;
 import com.example.apiServer.entity.Token;

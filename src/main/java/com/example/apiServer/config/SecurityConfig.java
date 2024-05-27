@@ -1,8 +1,8 @@
 package com.example.apiServer.config;
 
-import com.example.apiServer.auth.jwt.CustomJwtFilter;
-import com.example.apiServer.auth.jwt.JwtAccessDeniedHandler;
-import com.example.apiServer.auth.jwt.JwtAuthenticationEntryPoint;
+import com.example.apiServer.jwt.CustomJwtFilter;
+import com.example.apiServer.jwt.JwtAccessDeniedHandler;
+import com.example.apiServer.jwt.JwtAuthenticationEntryPoint;
 import jakarta.servlet.Filter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,8 +11,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.filter.CorsFilter;
@@ -41,17 +39,12 @@ public class SecurityConfig {
                     c.authenticationEntryPoint(jwtAuthenticationEntryPoint).accessDeniedHandler(jwtAccessDeniedHandler);
                 })
                 .authorizeHttpRequests(c -> {
-                    c.requestMatchers("/api/v1/user",
-                                    "/api/v1/user/token",
-                                    "/api/v1/user/exists/**").permitAll()
+                    c.requestMatchers("/api/v1/organization",
+                                    "/api/v1/organizationtoken",
+                                    "/api/v1/organization/exists/**").permitAll()
                             .anyRequest().authenticated();
                 });
 
         return http.build();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 }

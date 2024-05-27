@@ -1,4 +1,4 @@
-package com.example.apiServer.auth.jwt;
+package com.example.apiServer.jwt;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;

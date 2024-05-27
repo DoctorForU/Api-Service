@@ -1,4 +1,4 @@
-package com.example.apiServer.auth.jwt;
+package com.example.apiServer.jwt;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;

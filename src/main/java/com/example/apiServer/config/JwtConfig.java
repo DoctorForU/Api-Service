@@ -1,7 +1,7 @@
 package com.example.apiServer.config;
 
-import com.example.apiServer.auth.jwt.JwtProperties;
-import com.example.apiServer.auth.jwt.TokenProvider;
+import com.example.apiServer.jwt.JwtProperties;
+import com.example.apiServer.jwt.TokenProvider;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
