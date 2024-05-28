@@ -1,5 +1,6 @@
 package com.example.apiServer.controller;
 
+import com.example.apiServer.dto.token.AccessTokenResponse;
 import com.example.apiServer.dto.token.RefreshTokenRequest;
 import com.example.apiServer.dto.token.TokenRequest;
 import com.example.apiServer.dto.token.TokenResponse;
@@ -42,9 +43,9 @@ public class TokenController {
     }
 
 
-    @GetMapping("/refresh")
-    public ResponseEntity<TokenResponse> getRefresh(@RequestBody RefreshTokenRequest refreshTokenRequest) {
-        TokenResponse response = tokenService.getRefreshToken(refreshTokenRequest.getOrganizationName(), refreshTokenRequest.getRefreshToken());
+    @GetMapping("/access")
+    public ResponseEntity<AccessTokenResponse> getRefresh(@RequestBody RefreshTokenRequest refreshTokenRequest) {
+        AccessTokenResponse response = tokenService.getAccessToken(refreshTokenRequest.getOrganizationName(), refreshTokenRequest.getRefreshToken());
         return ResponseEntity.ok(response);
     }
 

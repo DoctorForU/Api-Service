@@ -15,13 +15,17 @@ spring:
     hibernate:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-      ddl-auto: update # (1) 스키마 생성
-    show-sql: true # (2) SQL 쿼리 출력
+      ddl-auto: update
+    show-sql: true
     generate-ddl: true
     properties:
       hibernate:
-        format_sql: true # (3) SQL pretty print
-        generate_statistics: true # 5월 28일 rollback오류
+        format_sql: true
+        generate_statistics: true
+        use_sql_comments: true
+        jdbc:
+          batch_size: 20
+          fetch_size: 50
 
     defer-datasource-initialization: true
 
@@ -34,3 +38,6 @@ logging:
     root: info
     org:
       hibernate: debug
+      springframework:
+        orm: trace
+        jdbc: trace

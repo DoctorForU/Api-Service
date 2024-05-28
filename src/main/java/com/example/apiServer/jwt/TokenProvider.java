@@ -37,26 +37,26 @@ public class TokenProvider {
     }
 
     // Access Token 생성.
-    public String createAccessToken(Authentication authentication){
-        return this.createToken(authentication, accessTokenValidTime);
+    public String createAccessToken(Authentication authentication, Long nowTime){
+        Date validity = new Date(nowTime + accessTokenValidTime);
+        return this.createToken(authentication, validity);
     }
     // Refresh Token 생성.
-    public String createRefreshToken(Authentication authentication) {
-        return this.createToken(authentication, refreshTokenValidTime);
+    public String createRefreshToken(Authentication authentication, Long nowTime) {
+        Date validity = new Date(nowTime + refreshTokenValidTime);
+        return this.createToken(authentication, validity);
     }
 
-    public String createToken(Authentication authentication, long expired) {
+    public String createToken(Authentication authentication, Date expired) {
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
 
-        Date now = new Date();
-        Date validity = new Date(now.getTime() + expired);
         return Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim(AUTHORITIES_KEY, authorities)
                 .signWith(key, SignatureAlgorithm.HS512) // HMAC + SHA512
-                .setExpiration(validity)
+                .setExpiration(expired)
                 .compact();
     }
 

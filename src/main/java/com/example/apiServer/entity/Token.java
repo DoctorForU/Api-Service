@@ -1,20 +1,35 @@
 package com.example.apiServer.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.redis.core.RedisHash;
+import jakarta.persistence.*;
+import lombok.*;
 
-
-@RedisHash(value = "Token", timeToLive = 2592000) // 30 days in seconds // 추가설명 필요
-@AllArgsConstructor
-@NoArgsConstructor
+@Entity
+@Table(name = "token")
 @Data
-public class Token { // Reddis를 사용해 리프레시토큰 관리하기
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Token {
     @Id
-    private String id; // 직접 넣어야 함
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
 
-    private String refreshToken;
+    @Column(name = "organization_name", nullable = false)
+    private String organizationName; // 기관 이름
 
+    @Column(nullable = false, unique = true)
+    private String token;
+
+    @Column(nullable = false)
+    private Long createdAt;
+
+    public Token(String organizationName, String token, Long createdAt) {
+        this.organizationName = organizationName;
+        this.token = token;
+        this.createdAt = createdAt;
+    }
+
+    public Token update(String token) {
+        this.token = token;
+        return this;
+    }
 }
