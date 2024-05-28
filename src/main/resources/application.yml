@@ -21,9 +21,16 @@ spring:
     properties:
       hibernate:
         format_sql: true # (3) SQL pretty print
+        generate_statistics: true # 5월 28일 rollback오류
 
     defer-datasource-initialization: true
 
 jwt:
   secret: ${application.jwt.secret}
   refresh-token-expiration-seconds: 90
+
+logging:
+  level:
+    root: info
+    org:
+      hibernate: debug

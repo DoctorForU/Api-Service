@@ -10,14 +10,15 @@ import com.example.apiServer.repository.OrganizationRepository;
 import com.example.apiServer.repository.TokenRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 @Service
-@Slf4j
 @RequiredArgsConstructor
 @Transactional
 public class TokenService {
@@ -26,19 +27,37 @@ public class TokenService {
     private final OrganizationRepository organizationRepository;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     public TokenResponse getAuthToken(String organizationId, String organizationEmail) {
-        // 권한 생성 (기관, 공식 메일)
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(organizationId, organizationEmail);
-        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+        try {
+            logger.debug("Authenticating organization with ID: " + organizationId + " and email: " + organizationEmail);
 
-        // Token 발급
-        String accessToken = tokenProvider.createAccessToken(authentication);
-        String refreshToken = tokenProvider.createRefreshToken(authentication);
+            // 권한 생성 (기관, 공식 메일)
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(organizationId, organizationEmail);
+            Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
-        // 공식 이메일 - RefreshToken 저장
-        tokenRepository.save(new Token(organizationEmail, refreshToken));
-        return new TokenResponse(accessToken, refreshToken);
+            logger.debug("Authentication successful for organization ID: " + organizationId);
+
+            // Token 발급
+            String accessToken = tokenProvider.createAccessToken(authentication);
+            String refreshToken = tokenProvider.createRefreshToken(authentication);
+
+            logger.debug("Access and refresh tokens created for organization ID: " + organizationId);
+
+            // 공식 이메일 - RefreshToken 저장
+            tokenRepository.save(new Token(organizationEmail, refreshToken));
+
+            logger.debug("Refresh token saved for organization email: " + organizationEmail);
+
+            return new TokenResponse(accessToken, refreshToken);
+        } catch (Exception e) {
+            logger.error("Error occurred while generating auth token for organization ID: " + organizationId + " and email: " + organizationEmail, e);
+            throw e; // 예외를 다시 던져서 트랜잭션 롤백이 일어나도록 함
+        }
     }
+
+
 
     public TokenResponse getRefreshToken(String organizationName, String refreshToken){
         String organizationEmail = findByOrganizationName(organizationName);

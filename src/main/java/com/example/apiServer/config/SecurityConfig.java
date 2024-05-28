@@ -41,9 +41,8 @@ public class SecurityConfig {
                     c.authenticationEntryPoint(jwtAuthenticationEntryPoint).accessDeniedHandler(jwtAccessDeniedHandler);
                 })
                 .authorizeHttpRequests(c -> {
-                    c.requestMatchers("/api/v1/organization",
-                                    "/api/v1/organizationtoken",
-                                    "/api/v1/organization/exists/**").permitAll()
+                    c.requestMatchers("/api/v1/organization/**")
+                            .permitAll()
                             .anyRequest().authenticated();
                 });
 
