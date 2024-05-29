@@ -1,4 +1,7 @@
 spring:
+  application:
+    name: apiServer
+
   data:
     redis:
       host: localhost
@@ -6,15 +9,13 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${application.spring.datasource.url}
-    username: ${application.spring.datasource.username}
-    password: ${application.spring.datasource.password}
+    url: jdbc:mysql://localhost:3306/apiserver?serverTimezone=Asia/Seoul
+    username: root
+    password: 0000abc
 
   jpa:
     database: mysql
     hibernate:
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       ddl-auto: update
     show-sql: true
     generate-ddl: true

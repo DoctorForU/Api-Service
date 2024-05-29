@@ -4,6 +4,7 @@ import com.example.apiServer.entity.Treat;
 import com.example.apiServer.repository.TreatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +15,7 @@ public class TreatService { // 진단서 -> 받은 request의 주민번호를 dt
     private TreatRepository treatRepository;
 
     // 진료 내역
+    @Transactional
     public Optional<Treat> findById(Long id){
         return treatRepository.findById(id);
     }

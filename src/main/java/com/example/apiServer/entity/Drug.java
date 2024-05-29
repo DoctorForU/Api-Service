@@ -13,10 +13,15 @@ import lombok.Setter;
 public class Drug {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "drugId")
-    private Long drugCode; //약품코드
+    @Column(name = "drug_id")
+    private Long id;
 
-    private String prescribeDrugName; //처방약품명
+    @Column(name = "drug_code", nullable = false)
+    private Long code; //약품코드
 
-    private String prescribeDrugEffect; //처방약품효능
+    @Column(name = "drug_name", nullable = false)
+    private String name; //처방약품명
+
+    @Column(name = "drug_effect")
+    private String effect; //처방약품효능
 }

@@ -11,10 +11,11 @@ import lombok.NoArgsConstructor;
 public class Organization { // 인증된 기관들을 저장해놓은 테이블
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "organizationId")
+    @Column(name = "organization_id")
     private Long id;
-    private String organizationName;
-
-    private String organizationEmail;
+    @Column(name = "organization_name")
+    private String name;
+    @Column(name = "organization_email", unique = true)
+    private String email;
 
 }

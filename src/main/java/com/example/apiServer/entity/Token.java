@@ -7,29 +7,29 @@ import lombok.*;
 @Table(name = "token")
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Token {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    public class Token {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(name = "token_id")
+        private Long id;
 
-    @Column(name = "organization_name", nullable = false)
-    private String organizationName; // 기관 이름
+        @Column(name = "token_organizationName", nullable = false)
+        private String organizationName; // 기관 이름
 
-    @Column(nullable = false, unique = true)
-    private String token;
+        @Column(name = "token_refreshToken", nullable = false, unique = true)
+        private String refreshToken;
 
-    @Column(nullable = false)
+        @Column(name = "token_createdAt", nullable = false)
     private Long createdAt;
 
-    public Token(String organizationName, String token, Long createdAt) {
+    public Token(String organizationName, String refreshToken, Long createdAt) {
         this.organizationName = organizationName;
-        this.token = token;
+        this.refreshToken = refreshToken;
         this.createdAt = createdAt;
     }
 
-    public Token update(String token) {
-        this.token = token;
+    public Token update(String refreshToken) {
+        this.refreshToken = refreshToken;
         return this;
     }
 }

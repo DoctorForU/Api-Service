@@ -14,6 +14,7 @@ public class MedicationService {
     private MedicationRepository medicationRepository;
 
     // 처방 정보
+    @Transactional
     public Medication findById(Long id){
         Optional<Medication> medication = medicationRepository.findById(id);
         return medication.get();
