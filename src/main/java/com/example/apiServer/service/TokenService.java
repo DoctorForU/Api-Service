@@ -8,7 +8,7 @@ import com.example.apiServer.entity.Organization;
 import com.example.apiServer.entity.Token;
 import com.example.apiServer.exception.GeneralException;
 import com.example.apiServer.repository.OrganizationRepository;
-import com.example.apiServer.repository.TokenRepository;
+//import com.example.apiServer.repository.TokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,16 +16,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class TokenService {
     private final TokenProvider tokenProvider;
-    private final TokenRepository tokenRepository;
+    // private final TokenRepository tokenRepository;
     private final OrganizationRepository organizationRepository;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
@@ -39,20 +37,14 @@ public class TokenService {
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(organizationName, organizationEmail);
             Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
-            logger.debug("Authentication successful for organization ID: " + organizationName);
-
             Long created_At = new Date().getTime();
 
             // Token 발급
             String accessToken = tokenProvider.createAccessToken(authentication, created_At);
             String refreshToken = tokenProvider.createRefreshToken(authentication, created_At);
 
-            logger.debug("Access and refresh tokens created for organization ID: " + organizationName);
-
             // RefreshToken 저장
-            tokenRepository.save(new Token(organizationName, refreshToken, created_At));
-
-            logger.debug("Refresh token saved for organization email: " + organizationEmail);
+            //tokenRepository.save(new Token(organizationName, refreshToken, created_At));
 
             return new TokenResponse(accessToken, refreshToken);
         } catch (Exception e) {
@@ -62,7 +54,7 @@ public class TokenService {
     }
 
     public AccessTokenResponse getAccessToken(String organizationName, String refreshToken) {
-        String organizationEmail = findByOrganizationName(organizationName);
+        //findByOrganizationName(organizationName);
         Authentication authentication = tokenProvider.getAuthentication(refreshToken);
         Long nowTime = new Date().getTime();
 
@@ -72,8 +64,8 @@ public class TokenService {
         return new AccessTokenResponse(newAccessToken);
     }
 
-    public String findByOrganizationName(String organizationName) {
-        return organizationRepository.findByOrganizationName(organizationName).map(Organization::getOrganizationEmail)
-                .orElseThrow(() -> new GeneralException(ErrorStatus._USER_NOT_FOUND));
-    }
+//    public Organization findByOrganizationName(String organizationName) {
+//        return organizationRepository.findByOrganizationName(organizationName)
+//                .orElseThrow(() -> new GeneralException(ErrorStatus._USER_NOT_FOUND));
+//    }
 }

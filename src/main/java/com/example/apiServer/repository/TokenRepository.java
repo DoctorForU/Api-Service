@@ -6,9 +6,9 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 
 public interface TokenRepository extends CrudRepository<Token, Long> {
-    Optional<Token> findById(Long id);
-
-    Optional<Token> findByToken(String token);
-
-    int deleteByOrganizationName(String organizationName);
+//    Optional<Token> findById(Long id);
+//
+//    Optional<Token> findByToken(String token);
+//
+//    int deleteByOrganizationName(String organizationName);
 }
