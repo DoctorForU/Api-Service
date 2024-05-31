@@ -3,12 +3,15 @@ package com.example.apiServer.jwt;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.time.Instant;
@@ -18,6 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
+@Component
 public class TokenProvider {
     private static final String AUTHORITIES_KEY = "auth";
     private final String secret;
@@ -28,7 +32,7 @@ public class TokenProvider {
     private long refreshTokenValidTime = 24 * 60 * 60 * 1000L;
 
     @Autowired
-    public TokenProvider(String secret) {
+    public TokenProvider(@Value("${jwt.secret}") String secret) { // 시크릿키 // 여기 고쳐야 함
         this.secret = secret;
 
         // 시크릿 값을 복호화(decode) 하여 키 변수에 할당

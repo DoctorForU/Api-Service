@@ -6,6 +6,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TokenRequest {
-    private String organizationName;
-    private String organizationEmail;
+    private String organizationName; // DoctorForU
+    private String organizationEmail; // uj0791naver.com@skuniv.ac.kr
 }
