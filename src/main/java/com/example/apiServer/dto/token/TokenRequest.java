@@ -8,4 +8,5 @@ import lombok.*;
 public class TokenRequest {
     private String organizationName; // DoctorForU
     private String organizationEmail; // uj0791naver.com@skuniv.ac.kr
+    private String password;
 }

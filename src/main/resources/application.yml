@@ -34,11 +34,11 @@ jwt:
   secret: ${application.jwt.secret}
   refresh-token-expiration-seconds: 90
 
-logging:
-  level:
-    root: info
-    org:
-      hibernate: debug
-      springframework:
-        orm: trace
-        jdbc: trace
+#logging:
+#  level:
+#    root: info
+#    org:
+#      hibernate: debug
+#      springframework:
+#        orm: trace
+#        jdbc: trace

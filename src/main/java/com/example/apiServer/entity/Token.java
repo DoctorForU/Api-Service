@@ -20,7 +20,7 @@ import lombok.*;
         private String refreshToken;
 
         @Column(name = "token_createdAt", nullable = false)
-    private Long createdAt;
+        private Long createdAt;
 
     public Token(String organizationName, String refreshToken, Long createdAt) {
         this.organizationName = organizationName;

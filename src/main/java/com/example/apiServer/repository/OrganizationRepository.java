@@ -7,6 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 public interface OrganizationRepository extends JpaRepository<Organization, Long> {
-    @Transactional(readOnly = true)
-    Optional<Organization> findByName(String organizationName);
+
+    Optional<Organization> findByOrganizationName(String organizationName);
+
+
 }

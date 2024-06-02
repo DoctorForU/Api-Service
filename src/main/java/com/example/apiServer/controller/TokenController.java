@@ -28,9 +28,10 @@ public class TokenController {
     public ResponseEntity<TokenResponse> getAuth(@RequestBody TokenRequest tokenRequest) {
         logger.info("request email: " + tokenRequest.getOrganizationEmail());
         logger.info("request name: " + tokenRequest.getOrganizationName());
+        logger.info("request password: " + tokenRequest.getPassword());
 
         try {
-            TokenResponse token = tokenService.getAuthToken(tokenRequest.getOrganizationName(), tokenRequest.getOrganizationEmail());
+            TokenResponse token = tokenService.getAuthToken(tokenRequest.getOrganizationName(), tokenRequest.getOrganizationEmail(), tokenRequest.getPassword());
 
             logger.info("response access: " + token.getAccessToken());
             logger.info("response refresh: " + token.getRefreshToken());
