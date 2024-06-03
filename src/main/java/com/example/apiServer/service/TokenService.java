@@ -2,11 +2,13 @@ package com.example.apiServer.service;
 
 import com.example.apiServer.api.status.ErrorStatus;
 import com.example.apiServer.dto.token.AccessTokenResponse;
+import com.example.apiServer.entity.Token;
 import com.example.apiServer.jwt.TokenProvider;
 import com.example.apiServer.dto.token.TokenResponse;
 import com.example.apiServer.entity.Organization;
 import com.example.apiServer.exception.GeneralException;
 import com.example.apiServer.repository.OrganizationRepository;
+import com.example.apiServer.repository.TokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +27,7 @@ public class TokenService {
     private final OrganizationRepository organizationRepository;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final AuthenticationManager authenticationManager;
+    private final TokenRepository tokenRepository;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -48,8 +51,9 @@ public class TokenService {
             String accessToken = tokenProvider.createAccessToken(authentication, created_At);
             String refreshToken = tokenProvider.createRefreshToken(authentication, created_At);
 
+            Token buildtoken = new Token(organizationName, refreshToken, created_At);
             // RefreshToken 저장
-            //tokenRepository.save(new Token(organizationName, refreshToken, created_At));
+            tokenRepository.save(buildtoken);
 
             return new TokenResponse(accessToken, refreshToken);
         } catch (Exception e) {

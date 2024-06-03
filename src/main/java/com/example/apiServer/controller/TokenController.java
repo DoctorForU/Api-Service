@@ -44,10 +44,10 @@ public class TokenController {
     }
 
 
-//    @GetMapping("/access")
-//    public ResponseEntity<AccessTokenResponse> getRefresh(@RequestBody RefreshTokenRequest refreshTokenRequest) {
-//        AccessTokenResponse response = tokenService.getAccessToken(refreshTokenRequest.getOrganizationName(), refreshTokenRequest.getRefreshToken());
-//        return ResponseEntity.ok(response);
-//    }
+    @GetMapping("/access")
+    public ResponseEntity<AccessTokenResponse> getRefresh(@RequestBody RefreshTokenRequest refreshTokenRequest) {
+        AccessTokenResponse response = tokenService.getAccessToken(refreshTokenRequest.getOrganizationName(), refreshTokenRequest.getRefreshToken());
+        return ResponseEntity.ok(response);
+    }
 
 }
