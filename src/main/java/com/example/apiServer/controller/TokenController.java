@@ -44,7 +44,7 @@ public class TokenController {
     }
 
 
-    @GetMapping("/access")
+    @PostMapping("/access") // refresh로 access 토큰을 발급하는 요청
     public ResponseEntity<AccessTokenResponse> getRefresh(@RequestBody RefreshTokenRequest refreshTokenRequest) {
         AccessTokenResponse response = tokenService.getAccessToken(refreshTokenRequest.getOrganizationName(), refreshTokenRequest.getRefreshToken());
         return ResponseEntity.ok(response);

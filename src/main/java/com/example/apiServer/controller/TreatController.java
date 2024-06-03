@@ -28,7 +28,7 @@ public class TreatController {
     private TokenProvider tokenProvider;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @PostMapping("/getTreat")
+    @PostMapping("/getTreat") // data요청
     public ResponseEntity<TreatResponse> getTreat(@RequestBody TreatRequest treatRequest){
         logger.info("request userIdentity: " + treatRequest.getUserIdentity());
         logger.info("request token: " + treatRequest.getToken());

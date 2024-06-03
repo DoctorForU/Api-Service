@@ -5,6 +5,8 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,6 +25,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Component
 public class TokenProvider {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private static final String AUTHORITIES_KEY = "auth";
     private final String secret;
     private Key key;
@@ -76,6 +79,10 @@ public class TokenProvider {
                 Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
+
+        String organizationName = claims.get("organizationName", String.class);
+        logger.info("추출 값: "+ organizationName);
+
 
 
         return new UsernamePasswordAuthenticationToken(token, authorities);

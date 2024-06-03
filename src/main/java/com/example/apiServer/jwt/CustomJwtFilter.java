@@ -21,7 +21,7 @@ public class CustomJwtFilter implements Filter {
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
-        String jwt = resolveToken(req);
+        String jwt = resolveToken(req); // 이게 FE에서 날라온 토큰임 (access)
         String requestURI = req.getRequestURI();
 
         // 토큰 유효성 검사

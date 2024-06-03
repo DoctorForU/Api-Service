@@ -53,6 +53,7 @@ public class TokenService {
             String accessToken = tokenProvider.createAccessToken(authentication, created_At);
             String refreshToken = tokenProvider.createRefreshToken(authentication, created_At);
 
+
             Token buildtoken = new Token(organizationName, refreshToken, created_At);
             // RefreshToken 저장
             tokenRepository.save(buildtoken);
