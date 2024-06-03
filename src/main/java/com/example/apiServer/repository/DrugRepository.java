@@ -7,6 +7,4 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 public interface DrugRepository extends JpaRepository<Drug, Long> {
-    @Transactional
-    Optional<Drug> findById(Long id);
 }

@@ -11,7 +11,5 @@ import java.util.Optional;
 
 @Transactional(readOnly = true)
 public interface TreatRepository extends JpaRepository<Treat, Long> {
-    Optional<Treat> findById(Long id);
-    @Query("select tr from Treat tr where tr.userIdentity = :userIdentity")
-    List<Treat> findAllByUserIdentity(@Param("userIdentity") String userIdentity); // 이게 주민 번호와 일치시키는 것
+    Optional<Treat> findByUserIdentity(String userIdentity);
 }

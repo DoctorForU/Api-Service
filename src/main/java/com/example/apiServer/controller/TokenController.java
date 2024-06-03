@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/api/v1/organization")
+@RequestMapping("/api/v1/token")
 @RequiredArgsConstructor
 public class TokenController {
     private final TokenService tokenService;

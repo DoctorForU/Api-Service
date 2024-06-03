@@ -24,4 +24,8 @@ public class Drug {
 
     @Column(name = "drug_effect")
     private String effect; //처방약품효능
+
+    @ManyToOne
+    @JoinColumn(name = "medication_id")
+    private Medication medication;
 }

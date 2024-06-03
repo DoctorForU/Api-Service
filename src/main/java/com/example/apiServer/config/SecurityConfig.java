@@ -49,7 +49,7 @@ public class SecurityConfig {
                 })
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/register").permitAll();
-                    auth.requestMatchers("/api/v1/organization/**").permitAll();
+                    auth.requestMatchers("/api/v1/**").permitAll();
                     auth.anyRequest().authenticated();
                 });
 

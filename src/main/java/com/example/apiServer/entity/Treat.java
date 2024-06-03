@@ -1,9 +1,12 @@
 package com.example.apiServer.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -16,18 +19,22 @@ public class Treat {
     @Column(name = "treat_id")
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "treat_id")
+    @OneToOne
+    @JoinColumn(name = "medication_id")
+    @JsonBackReference // 순환 참조 방지를 위해
     private Medication medication; // 처방내역
 
     @Column(name = "treat_startDate", nullable = false)
-    private Date startDate; // 진료개시일 -> date 객체 유무 알고 적어야 함 - date, timestamp
+    private LocalDate startDate; // 진료개시일 -> date 객체 유무 알고 적어야 함 - date, timestamp
 
     @Column(name = "treat_subject", nullable = false)
     private int subject; //진료과목
 
     @Column(name = "treat_hospitalName", nullable = false)
     private String hospitalName;
+
+    @Column(name = "treat_hpid")
+    private String hpid; //공단부담금
 
     @Column(name = "treat_visitDays")
     private String visitDays; //방문일수

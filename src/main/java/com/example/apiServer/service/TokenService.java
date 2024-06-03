@@ -9,6 +9,7 @@ import com.example.apiServer.entity.Organization;
 import com.example.apiServer.exception.GeneralException;
 import com.example.apiServer.repository.OrganizationRepository;
 import com.example.apiServer.repository.TokenRepository;
+import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.security.Key;
 import java.util.Date;
 
 @Service
@@ -71,4 +73,7 @@ public class TokenService {
 
         return new AccessTokenResponse(newAccessToken);
     }
+
+
+
 }
