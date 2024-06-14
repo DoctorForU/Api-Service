@@ -18,7 +18,7 @@ public class TreatResponse {
     private LocalDate treatStartDate; //진료개시일
     private int treatSubject; //진료과목
     private String hospitalName; // 병원이름
-    private String hpid; // 병원 코드
+    private String hpid; // 병원 코드 -> 실데이터 A1113478
     private String visitDays; //방문일수
     private String userName;
     private int prescribeCnt; //처방횟수

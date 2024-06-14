@@ -22,12 +22,12 @@ public class Medication {
     @Column(name = "medication_id")
     private Long id;
 
-    @OneToOne(mappedBy = "medication")
+    @OneToMany(mappedBy = "medication", cascade = CascadeType.ALL, orphanRemoval = true) //@OneToOne(mappedBy = "medication")
     @JsonManagedReference //역시 순환참조를 제거 하기 위해
-    private Treat treat;
+    private List<Treat> treats = new ArrayList<>(); //private Treat treat;
 
     @OneToMany(mappedBy = "medication", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Drug> drugs;
+    private List<Drug> drugs = new ArrayList<>();
 
     @Column(name = "medication_diseaseId")
     private String diseaseId; // 질병분류

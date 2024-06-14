@@ -19,7 +19,7 @@ public class Treat {
     @Column(name = "treat_id")
     private Long id;
 
-    @OneToOne
+    @ManyToOne // OneToOne이였음
     @JoinColumn(name = "medication_id")
     @JsonBackReference // 순환 참조 방지를 위해
     private Medication medication; // 처방내역
@@ -42,7 +42,7 @@ public class Treat {
     @Column(name = "treat_userName", nullable = false)
     private String userName; // 이름
 
-    @Column(name = "treat_userIdentity", unique = true, nullable = false)
+    @Column(name = "treat_userIdentity", unique = false, nullable = false) // -> 이거 문제가 있음 unique면 안됨 false로 고침
     private String userIdentity; //주민번호
 
     @Column(name = "treat_prescribeCnt")

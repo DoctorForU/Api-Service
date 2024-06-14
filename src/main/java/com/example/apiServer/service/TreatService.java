@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TreatService { // 진단서 -> 받은 request의 주민번호를 dto로 변형해서 -> 그 값을 가상 api-server에 주민번호와 일치 시켜 데이터를 response하기
@@ -32,11 +33,17 @@ public class TreatService { // 진단서 -> 받은 request의 주민번호를 dt
     @Autowired
     private TokenProvider tokenProvider;
 
-    public TreatResponse getTreat(TreatRequest treatRequest) {
-        Optional<Treat> optionalTreat = treatRepository.findByUserIdentity(treatRequest.getUserIdentity());
-        if (optionalTreat.isPresent()) {
-            Treat treat = optionalTreat.get();
-            return convertToDto(treat);
+    //public TreatResponse getTreat(TreatRequest treatRequest) {
+    public List<TreatResponse> getTreat(TreatRequest treatRequest) {
+        //Optional<Treat> optionalTreat = treatRepository.findByUserIdentity(treatRequest.getUserIdentity());
+        List<Treat> treats = treatRepository.findByUserIdentity(treatRequest.getUserIdentity());
+        //if (optionalTreat.isPresent()) {
+        if (!treats.isEmpty()) {
+            return treats.stream()
+                    .map(this::convertToDto)
+                    .collect(Collectors.toList());
+//            Treat treat = optionalTreat.get();
+//            return convertToDto(treat);
         } else {
             throw new RuntimeException("Treat not found");
         }

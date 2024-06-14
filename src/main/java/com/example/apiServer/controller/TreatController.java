@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/treat")
@@ -28,8 +30,9 @@ public class TreatController {
     private TokenProvider tokenProvider;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @PostMapping("/getTreat") // data요청
-    public ResponseEntity<TreatResponse> getTreat(@RequestBody TreatRequest treatRequest){
+    @PostMapping("/getTreat") // data요청 ->
+    //public ResponseEntity<TreatResponse> getTreat(@RequestBody TreatRequest treatRequest){
+    public ResponseEntity<List<TreatResponse>> getTreat(@RequestBody TreatRequest treatRequest){
         logger.info("request userIdentity: " + treatRequest.getUserIdentity());
         logger.info("request token: " + treatRequest.getToken());
 
@@ -42,9 +45,10 @@ public class TreatController {
         }
 
         try{
-            TreatResponse treatResponse = treatService.getTreat(treatRequest);
-            logger.info(String.valueOf(treatResponse));
-            return ResponseEntity.ok(treatResponse);
+            //TreatResponse treatResponse = treatService.getTreat(treatRequest);
+            List<TreatResponse> treatResponses = treatService.getTreat(treatRequest);
+            logger.info(String.valueOf(treatResponses));
+            return ResponseEntity.ok(treatResponses);
         } catch(Exception e){
             logger.error("Error processing getTreat request", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);

@@ -11,5 +11,6 @@ import java.util.Optional;
 
 @Transactional(readOnly = true)
 public interface TreatRepository extends JpaRepository<Treat, Long> {
-    Optional<Treat> findByUserIdentity(String userIdentity);
+    //Optional<Treat> findByUserIdentity(String userIdentity);
+    List<Treat> findByUserIdentity(String userIdentity);
 }
