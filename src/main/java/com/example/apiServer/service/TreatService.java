@@ -49,6 +49,17 @@ public class TreatService { // 진단서 -> 받은 request의 주민번호를 dt
         }
     }
 
+    public List<TreatResponse> getTreatAndDate(TreatRequest treatRequest) {
+        List<Treat> treats = treatRepository.findByUserIdentityAndDateRange(treatRequest.getUserIdentity(), treatRequest.getStartDate(), treatRequest.getEndDate());
+        if (!treats.isEmpty()) {
+            return treats.stream()
+                    .map(this::convertToDto)
+                    .collect(Collectors.toList());
+        } else {
+            throw new RuntimeException("Treat not found");
+        }
+    }
+
     public TreatResponse convertToDto(Treat treat) {
         MedicationResponse medicationResponse = new MedicationResponse(treat.getMedication());
 

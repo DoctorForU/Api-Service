@@ -29,10 +29,13 @@ public class TokenProvider {
     private static final String AUTHORITIES_KEY = "auth";
     private final String secret;
     private Key key;
-    // 어세스 토큰 유효시간 (1시간)
-    private long accessTokenValidTime = 1 * 60 * 60 * 1000L;
+    // 어세스 토큰 유효시간 (1시간) -> 6월 23일차 12시간으로 변경
+    private long accessTokenValidTime = 12 * 60 * 60 * 1000L;
     // 리프레시 토큰 유효시간 (1일)
     private long refreshTokenValidTime = 24 * 60 * 60 * 1000L;
+
+    // 리프레시 토큰 유효시간 (1일) -> 30일로 변경
+    // private long refreshTokenValidTime = 30L * 24 * 60 * 60 * 1000;
 
     @Autowired
     public TokenProvider(@Value("${jwt.secret}") String secret) { // 시크릿키 // 여기 고쳐야 함
