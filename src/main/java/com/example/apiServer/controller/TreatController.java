@@ -79,7 +79,7 @@ public class TreatController {
 
         try{
             //TreatResponse treatResponse = treatService.getTreat(treatRequest);
-            List<TreatResponse> treatResponses = treatService.getTreat(treatRequest);
+            List<TreatResponse> treatResponses = treatService.getTreatAndDate(treatRequest);
             logger.info(String.valueOf(treatResponses));
             return ResponseEntity.ok(treatResponses);
         } catch(Exception e){
